@@ -1,95 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-    <title>Cửa hàng điện thoại</title>
+    <meta charset="UTF-8">
+    <title>Quản trị</title>
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .admin-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .admin-menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .admin-menu li {
+            margin: 10px 0;
+        }
+
+        .admin-menu a {
+            display: block;
+            padding: 10px;
+            background: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .admin-menu a:hover {
+            background: #2980b9;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 14px;
+            text-decoration: none;
+            background: #e67e22;
+            color: #fff !important;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #d35400;
+        }
+    </style>
 </head>
 <body>
 
-<header>
-    <h1>Cửa hàng điện thoại</h1>
-    <div class="search-box">
-        <form class="search-box" method="GET" action="{{ route('search') }}">
-            <input type="text" name="q" placeholder="Tìm kiếm">
-            <button type="submit">Tìm</button>
-        </form>
-    </div>
-    <nav>
-        <ul>
-            <li>
-                @auth
-                    <a href="{{ route('account') }}">Tài khoản</a>
-                @else
-                    <a href="{{ route('login') }}">Đăng nhập</a>
-                @endauth
-            </li>
-            <li><a href="{{ route('news.index') }}">Tin tức</a></li>
-            <li><a href="{{ route('cart.index') }}">Giỏ hàng</a></li>
-        </ul>
-    </nav>
-</header>
+<div class="admin-container">
+    <h1>Chào mừng, {{ Auth::user()->username }}!</h1>
 
-<div class="container">
-    <aside class="sidebar">
-        <h2>Danh mục sản phẩm:</h2>
-        <ul>
-            @foreach($categories as $category)
-                <li>
-                    <a href="{{ route('category.show', $category->id) }}">{{ $category->name }}</a>
-                </li>
-            @endforeach
-        </ul>
-    </aside>
+    <ul class="admin-menu">
+        <li><a href="{{ route('admin.products.index') }}">Quản lý sản phẩm</a></li>
+        <li><a href="{{ route('admin.categories.index') }}">Quản lý danh mục</a></li>
+        <li><a href="{{ route('admin.orders.index') }}">Quản lý đơn hàng</a></li>
+        <li><a href="{{ route('admin.posts.index') }}">Quản lý bài viết</a></li>
+    </ul>
 
-    <main class="main-content">
-        <h2>Danh sách sản phẩm:</h2>
-        <ul class="product-list">
-            @if($products->isEmpty())
-                <li>Không có sản phẩm nào.</li>
-            @else
-                @foreach($products as $product)
-                    <li>
-                        <a href="{{ route('product.show', $product->id) }}">
-                            <img style="max-width: 100%; height: auto;" src="{{ asset('images/' . $product->image) }}" alt="{{ $product->name }}" width="100">
-                            {{ $product->name }} - {{ $product->price }}
-                        </a>
-                    </li>
-                @endforeach
-            @endif
-        </ul>
-    </main>
+    <a href="{{ route('account') }}" class="back-btn">Quay lại</a>
 </div>
-
-<footer>
-    <div class="footer-container">
-        <div class="footer-column">
-            <h3>Thông tin</h3>
-            <p>Cửa hàng điện tử chuyên cung cấp các sản phẩm chất lượng.</p>
-            <p>Địa chỉ: Trường Đại Học Công Nghệ Đông Á</p>
-            <p>Hotline: 0385901312</p>
-            <p>Email: support@cuahangdientu.com</p>
-        </div>
-
-        <div class="footer-column">
-            <h3>Chính sách</h3>
-            <ul>
-                <li><a href="#">Chính sách bảo mật</a></li>
-                <li><a href="#">Chính sách đổi trả</a></li>
-                <li><a href="#">Điều khoản sử dụng</a></li>
-            </ul>
-        </div>
-
-        <div class="footer-column">
-            <h3>Kết nối với chúng tôi</h3>
-            <ul class="social-links">
-                <li><a href="#"><img src="{{ asset('images/FB.png') }}" alt="Facebook"></a></li>
-                <li><a href="#"><img src="{{ asset('images/twitter.png') }}" alt="Twitter"></a></li>
-                <li><a href="#"><img src="{{ asset('images/ig.png') }}" alt="Instagram"></a></li>
-            </ul>
-        </div>
-    </div>
-    <p class="footer-bottom">&copy; 2025 Cửa hàng điện thoại. All rights reserved.</p>
-</footer>
 
 </body>
 </html>

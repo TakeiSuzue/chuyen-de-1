@@ -47,8 +47,13 @@
             font-size: 14px;
             text-decoration: none;
             border-radius: 5px;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.3s;
             margin: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
         }
 
         .back-home {
@@ -69,31 +74,57 @@
             background: #e67e22;
         }
 
-        .logout-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 12px;
-            background: #e74c3c;
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 5px;
+
+
+        .header-link {
+            color: inherit;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        .logout-btn:hover {
-            background: #c0392b;
+        .header-link:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .welcome-text {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 0 0 20px;
+            color: #2c3e50;
+        }
+
+        .role-label {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .role-value {
+            color: #555;
+        }
+
+        .role-value.admin {
+            color: #c0392b;
         }
     </style>
 </head>
 <body>
 
 <div class="account-container">
-    <a href="{{ route('logout') }}" class="logout-btn">Đăng xuất</a>
-
-    <h1>Thông tin tài khoản</h1>
-    <p><strong>Xin chào, {{ $user->username }}!</strong></p>
-    <p><strong>Email:</strong> {{ $user->email }}</p>
-    <p><strong>Vai trò:</strong> {{ $user->role == 'admin' ? '<span style="color: red;">Quản trị viên</span>' : 'Người dùng' }}</p>
+    <a href="{{ route('home') }}" class="header-link"><h1>Thông tin tài khoản</h1></a>
+    <p class="welcome-text">Chào mừng bạn đã đến với trang tài khoản!</p>
+    <p class="account-info"><strong>Xin chào,</strong> {{ $user->username }}!</p>
+    <p class="account-info"><strong>Email:</strong> {{ $user->email }}</p>
+    <p class="account-info">
+        <span class="role-label">Vai trò:</span>
+        <span class="role-value @if($user->role === 'admin') admin @endif">
+            @if($user->role === 'admin')
+                Quản trị viên
+            @else
+                Người dùng
+            @endif
+        </span>
+    </p>
 
     <div class="btn-group">
         <a href="{{ route('home') }}" class="btn back-home">Quay lại trang chủ</a>

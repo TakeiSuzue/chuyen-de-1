@@ -21,7 +21,10 @@
         <label>Tên đăng nhập:</label><br>
         <input type="text" name="username" value="{{ old('username') }}" required><br><br>
 
-        <label></label>form>Email:</label><br>
+        <label>Tên đăng nhập:</label><br>
+        <input type="text" name="username" value="{{ old('username') }}" required><br><br>
+
+        <label>Email:</label><br>
         <input type="email" name="email" value="{{ old('email') }}" required><br><br>
 
         <label>Mật khẩu:</label><br>
